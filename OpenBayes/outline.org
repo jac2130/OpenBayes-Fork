@@ -1,0 +1,76 @@
+#+LATEX_HEADER: \usepackage{hyperref}
+#+LATEX_HEADER:\usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{caption}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+#+LATEX_HEADER: \hypersetup{
+#+LATEX_HEADER:     colorlinks,%
+#+LATEX_HEADER:     citecolor=black,%
+#+LATEX_HEADER:     filecolor=black,%
+#+LATEX_HEADER:     linkcolor=blue,%
+#+LATEX_HEADER:     urlcolor=black
+#+LATEX_HEADER: }
+
+#+TITLE: Outline and Tutorial for the OpenBayes Python Module.
+#+AUTHOR: Johannes Castner
+#+EMAIL: jac2130 [at] columbia [dot] edu
+
+#+LATEX: \newpage
+
+* Inheritance and Module Organitation
+
+This is a rough outline of what is contained within the OpenBayes Python module:
+
+** The \textit{init} file
+
+This file simply imports all of the relevant moduls accessed by users:
+
+\begin{verbatim}
+__all__ = ['bayesnet', 'distributions', 'inference',
+'potentials', 'table', 'graph', 'OpenBayesXBN', 'BNController']
+\end{verbatim}
+
+** The \textit{bayesnet} file
+
+This file contains three classes: \verb|'BVertex', 'BNet'| and \verb|'BNetTestCase'| but it only exports two of them to the end user:
+
+\begin{verbatim}
+__all__ = ['BVertex', 'BNet']
+\end{verbatim}
+
+*** BVertex:
+This class inherits from \verb|graph.Vertex| and represents one random variable. It is initiated with a name space dictionary containing: \verb|name|, the name of the variable, \verb|discrete| an indicator of whether or not the variable is discrete or continuous, which is either true, meaning discrete (the default) or false, meaning continuous, \verb|nvalues| the number of possible values that the random variable can take on (if it is indeed descrete) and \verb|observed|, which is true if the variable can be observed and false if it is a hidden variable.
+
+\begin{verbatim}
+{'name': 'b', 'family': [<bayesnet.BVertex object at 0x2934a10>],
+'observed': True, 'discrete': True, 'nvalues': 2, 'distribution': None, '_e': []}
+\end{verbatim}
+
+
+*** The methods of BVertex:
+
+The methhods of \verb|BVertex| all refer to the \verb|distributions| file, desrcibed further below.
+- \verb|InitDistribution(self, *args, **kwargs)|:
+
+initializes conditional distribution of the variable as a function of incoming (causal nodes).
+
+- \verb|setDistributionParameters(self, *args, **kwargs)|
+
+does what its name suggests: it sets the parameters of the distribution.
+
+- \verb|GetSamplingDistribution(self)|
+
+used for the MCMC engine to sample from the distribution.
+
+- \verb|__cmp__(a,b)|
+
+This method is used for correct message passing.
+
+*** BNet:
+
+This class inherits from \verb|graph.Graph| and it uses the \verb|logging.getLogger('BNet')| class from the \verb|logging| sub-module directly accessable as \verb|log| on the class (not just on instances). \verb|BNet| initializes exactly as \verb|graph.Graph.__init__(self, name)|. Its name-space dictionary looks as:
+
+\begin{verbatim}
+{'e': {}, 'name': 'b', 'v': {}}
+\end{verbatim}

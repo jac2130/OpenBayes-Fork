@@ -32,9 +32,10 @@ __all__ = ['BNController']
 import cPickle, gzip
 import types
 
-from OpenBayes import BNet, BVertex, DirEdge, graph
-from OpenBayes import learning, MCMCEngine  #, LoadXBN, SaveXBN
-
+from bayesnet import BNet, BVertex
+from graph import DirEdge
+import learning  #, LoadXBN, SaveXBN
+from inference import MCMCEngine
 
 class BNController(object):
     _BN = None
