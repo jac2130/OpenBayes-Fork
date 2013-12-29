@@ -33,14 +33,14 @@ __all__ = ['bayesnet', 'distributions', 'inference',
 
 ** The \textit{bayesnet} file
 
-This file contains three classes: \verb|'BVertex', 'BNet'| and \verb|'BNetTestCase'| but it only exports two of them to the end user:
+This file contains three classes: \verb|'BVertex', 'BNet'| and \verb|'BNetTestCase'| but it only exports two of them to the end user (the third is only used as a test-case):
 
 \begin{verbatim}
 __all__ = ['BVertex', 'BNet']
 \end{verbatim}
 
 *** BVertex:
-This class inherits from \verb|graph.Vertex| and represents one random variable. It is initiated with a name space dictionary containing: \verb|name|, the name of the variable, \verb|discrete| an indicator of whether or not the variable is discrete or continuous, which is either true, meaning discrete (the default) or false, meaning continuous, \verb|nvalues| the number of possible values that the random variable can take on (if it is indeed descrete) and \verb|observed|, which is true if the variable can be observed and false if it is a hidden variable.
+This class inherits from \verb|graph.Vertex| and represents one random variable. It is initiated with a name space dictionary containing: \verb|name|, the name of the variable, \verb|discrete| an indicator of whether or not the variable is discrete or continuous, which is either true, meaning discrete (the default) or false, meaning continuous. \verb|nvalues| denotes the number of possible values that the random variable can take on (if it is indeed descrete) and \verb|observed| is an indicator, which takes the value "true" if the variable can be observed and "false" if the variable is hidden.
 
 \begin{verbatim}
 {'name': 'b', 'family': [<bayesnet.BVertex object at 0x2934a10>],
@@ -69,8 +69,10 @@ This method is used for correct message passing.
 
 *** BNet:
 
-This class inherits from \verb|graph.Graph| and it uses the \verb|logging.getLogger('BNet')| class from the \verb|logging| sub-module directly accessable as \verb|log| on the class (not just on instances). \verb|BNet| initializes exactly as \verb|graph.Graph.__init__(self, name)|. Its name-space dictionary looks as:
+This class inherits from \verb|graph.Graph| and it uses the \verb|logging.getLogger('BNet')| class from the \verb|logging| sub-module directly accessable as \verb|log| on the \verb|BNet| class (not just on its instances). \verb|BNet| initializes exactly as \verb|graph.Graph.__init__(self, name)|. Its name-space dictionary looks as:
 
 \begin{verbatim}
 {'e': {}, 'name': 'b', 'v': {}}
 \end{verbatim}
+
+*** BNet methods:

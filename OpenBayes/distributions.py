@@ -29,6 +29,8 @@ import numpy
 
 from table import Table
 
+class UnimplementedMethodException(Exception):
+    """Exception if someone calls a method that should be overridden."""
 
 # object gives access to __new__
 class Distribution(object):
@@ -116,18 +118,18 @@ class Distribution(object):
     #==================================================
     #=== Learning & Sampling Functions
     def initializeCounts(self):
-        raise "Must be implemented in child class !!!"
+        raise UnimplementedMethodException("Must be implemented in child class !!!")
 
     def incrCounts(self, index):
         """ add one to given count """
-        raise "Must be implemented in child class !!!"
+        raise UnimplementedMethodException("Must be implemented in child class !!!")
 
     def addToCounts(self, index, counts):
-        raise "Must be implemented in child class !!!"
+        raise UnimplementedMethodException("Must be implemented in child class !!!")
 
     def setCounts(self):
         """ set the distributions underlying cpt equal to the counts """
-        raise "Must be implemented in child class !!!"
+        raise UnimplementedMethodException("Must be implemented in child class !!!")
 
 
 class MultinomialDistribution(Distribution, Table):

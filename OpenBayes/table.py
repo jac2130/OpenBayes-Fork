@@ -127,7 +127,7 @@ class Table:
     # Put values into the cpt
     def rand(self):
         ''' put random values to self.cpt '''
-        self.cpt = numpy.mlab.rand(*self.shape)
+        self.cpt = numpy.random.rand(*self.shape) #random replaces mlab; it used to be numpy.mlab.rand
 
     def AllOnes(self):
         self.cpt = numpy.ones(self.shape, dtype='Float32')
@@ -660,7 +660,3 @@ if __name__ == '__main__':
     #a*b
     #print 'mul'
     #print a
-
-
-
-

@@ -110,7 +110,7 @@ class Vertex(delegate.Delegate):
         except: pass
         return adj
 
-    @_roprop('Set of vertices connected by incoming edges.')
+    @_roprop('Set of vertices connected by incoming edges.') #These are the parents.
     def in_v(self):
         return set(v for e in self._e for v in e.src_v if e.enters(self))
 
@@ -852,5 +852,3 @@ if __name__ == '__main__':
 
     print '\nshould print BASE LEFT RIGHT DER'
     print der
-
-
